@@ -1,6 +1,5 @@
 import { Vpc } from '@aws-cdk/aws-ec2';
 import * as cdk from '@aws-cdk/core';
-import { Construct } from 'constructs';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class DevioStack extends cdk.Stack {
