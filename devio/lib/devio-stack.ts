@@ -1,5 +1,5 @@
-import { Vpc } from '@aws-cdk/aws-ec2';
 import * as cdk from '@aws-cdk/core';
+import { CfnVPC } from '@aws-cdk/aws-ec2';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class DevioStack extends cdk.Stack {
@@ -13,6 +13,9 @@ export class DevioStack extends cdk.Stack {
     //   visibilityTimeout: cdk.Duration.seconds(300)
     // });
 
-    new Vpc(this, "Vpc");
+    new CfnVPC(this, "Vpc", {
+      cidrBlock: "10.0.0.0/16",
+      tags: [{ key: "Name", value: "devio-stg-vpc" }]
+    });
   }
 }
