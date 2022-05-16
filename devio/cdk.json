@@ -29,6 +29,8 @@
     "@aws-cdk/core:target-partitions": [
       "aws",
       "aws-cn"
-    ]
+    ],
+    "systemName": "devio",
+    "envType": "stg"
   }
 }

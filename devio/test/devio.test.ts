@@ -19,12 +19,17 @@ import { expect, countResources, haveResource } from '@aws-cdk/assert';
 // });
 
 test("Vpc", () => {
-  const app = new cdk.App();
+  const app = new cdk.App({
+    context: {
+      'systemName': 'starwars',
+      'envType': 'prd'
+    }
+  });
   const stack = new Devio.DevioStack(app, "DevioStack");
 
   expect(stack).to(countResources("AWS::EC2::VPC", 1))
   expect(stack).to(haveResource("AWS::EC2::VPC", {
     CidrBlock: "10.0.0.0/16",
-    Tags: [{ "Key": "Name", "Value": "devio-stg-vpc" }]
+    Tags: [{ "Key": "Name", "Value": "starwars-prd-vpc" }]
   }))
 })

@@ -13,9 +13,12 @@ export class DevioStack extends cdk.Stack {
     //   visibilityTimeout: cdk.Duration.seconds(300)
     // });
 
+    const systemName = this.node.tryGetContext("systemName")
+    const envType = this.node.tryGetContext("envType")
+
     new CfnVPC(this, "Vpc", {
       cidrBlock: "10.0.0.0/16",
-      tags: [{ key: "Name", value: "devio-stg-vpc" }]
+      tags: [{ key: "Name", value: `${systemName}-${envType}-vpc` }]
     });
   }
 }
