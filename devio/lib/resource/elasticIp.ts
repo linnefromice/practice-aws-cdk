@@ -9,19 +9,19 @@ interface ResourceInfo {
 }
 
 export class ElasticIp extends Resource {
-  public ngw1a: CfnEIP
-  public ngw1c: CfnEIP
+  public eip1a: CfnEIP
+  public eip1c: CfnEIP
 
   private readonly resourceInfos: ResourceInfo[] = [
     {
       id: "ElasticIpNgw1a",
       resourceName: "eip-ngw-1a",
-      assign: eip => this.ngw1a = eip
+      assign: eip => this.eip1a = eip
     },
     {
       id: "ElasticIpNgw1c",
       resourceName: "eip-ngw-1c",
-      assign: eip => this.ngw1c = eip
+      assign: eip => this.eip1c = eip
     }
   ]
 
