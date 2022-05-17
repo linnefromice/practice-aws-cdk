@@ -2,6 +2,7 @@ import * as cdk from '@aws-cdk/core';
 import { Vpc } from './resource/vpc';
 import { Subnet } from './resource/subnet';
 import { InternetGateway } from './resource/internetGateway';
+import { ElasticIp } from './resource/elasticIp';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class DevioStack extends cdk.Stack {
@@ -24,5 +25,8 @@ export class DevioStack extends cdk.Stack {
     // internet gateway
     const igw = new InternetGateway(vpc.vpc)
     igw.createResources(this)
+    // elastic ip
+    const eip = new ElasticIp()
+    eip.createResources(this)
   }
 }
