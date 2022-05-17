@@ -15,12 +15,12 @@ export class InternetGateway extends Resource {
   createResources(scope: cdk.Construct): void {
     this.igw = new CfnInternetGateway(scope, "InternetGateway", {
       tags: [{ key: "Name", value: this.createResourceName(scope, "igw")}]
-    })
+    });
 
     // 割り当て
     new CfnVPCGatewayAttachment(scope, "VpcGatewayAttachment", {
       vpcId: this.vpc.ref,
       internetGatewayId: this.igw.ref
-    })
+    });
   }  
 }
