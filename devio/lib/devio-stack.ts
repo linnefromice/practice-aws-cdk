@@ -4,6 +4,7 @@ import { Subnet } from './resource/subnet';
 import { InternetGateway } from './resource/internetGateway';
 import { ElasticIp } from './resource/elasticIp';
 import { NatGateway } from './resource/natGateway';
+import { RouteTable } from './resource/routeTable';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class DevioStack extends cdk.Stack {
@@ -37,5 +38,19 @@ export class DevioStack extends cdk.Stack {
       eip.eip1c
     )
     ngw.createResources(this)
+    // route table
+    const routeTable = new RouteTable(
+      vpc.vpc,
+      subnet.public1a,
+      subnet.public1c,
+      subnet.app1a,
+      subnet.app1c,
+      subnet.db1a,
+      subnet.db1c,
+      igw.igw,
+      ngw.ngw1a,
+      ngw.ngw1c,
+    )
+    routeTable.createResources(this)
   }
 }
