@@ -16,7 +16,7 @@ export class DevioStack extends cdk.Stack {
 
     // vpc
     const vpc = new Vpc()
-    vpc.createResouces(this)
+    vpc.createResources(this)
     // subnet
     const subnet = new Subnet(vpc.vpc)
     subnet.createResources(this)
