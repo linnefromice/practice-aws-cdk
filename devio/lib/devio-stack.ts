@@ -3,6 +3,7 @@ import { Vpc } from './resource/vpc';
 import { Subnet } from './resource/subnet';
 import { InternetGateway } from './resource/internetGateway';
 import { ElasticIp } from './resource/elasticIp';
+import { NatGateway } from './resource/natGateway';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class DevioStack extends cdk.Stack {
@@ -28,5 +29,13 @@ export class DevioStack extends cdk.Stack {
     // elastic ip
     const eip = new ElasticIp()
     eip.createResources(this)
+    // nat gateway
+    const ngw = new NatGateway(
+      subnet.public1a,
+      subnet.public1c,
+      eip.eip1a,
+      eip.eip1c
+    )
+    ngw.createResources(this)
   }
 }
