@@ -1,7 +1,6 @@
 import * as cdk from '@aws-cdk/core';
-import { CfnSubnet, CfnVPC } from '@aws-cdk/aws-ec2';
-import { Vpc } from './vpc';
-import { Subnet } from './subnet';
+import { Vpc } from './resource/vpc';
+import { Subnet } from './resource/subnet';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class DevioStack extends cdk.Stack {
