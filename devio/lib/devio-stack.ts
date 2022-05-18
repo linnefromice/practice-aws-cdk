@@ -6,6 +6,7 @@ import { ElasticIp } from './resource/elasticIp';
 import { NatGateway } from './resource/natGateway';
 import { RouteTable } from './resource/routeTable';
 import { NetworkAcl } from './resource/networkAcl';
+import { IamRole } from './resource/iamRole';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class DevioStack extends cdk.Stack {
@@ -64,5 +65,8 @@ export class DevioStack extends cdk.Stack {
       subnet.db1c
     );
     networkAcl.createResources(this);
+    // iam role
+    const iamRole = new IamRole()
+    iamRole.createResources(this)
   }
 }
