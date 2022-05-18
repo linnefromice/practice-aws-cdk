@@ -65,7 +65,7 @@
     "@aws-cdk/core" "1.156.1"
     constructs "^3.3.69"
 
-"@aws-cdk/aws-iam@1.156.1":
+"@aws-cdk/aws-iam@1.156.1", "@aws-cdk/aws-iam@^1.156.1":
   version "1.156.1"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-iam/-/aws-iam-1.156.1.tgz#2106b28c9af66e6287e0d8a4853fab3a341622b1"
   integrity sha512-vxGGnIklGjLA+Z5KNVTHY5awQvLTRpTVEvftFA6K3X5xdiE4Xrbp44LAe+2iUAZ3kftcCwz7Hd3Z4qQ6B5ILUw==
