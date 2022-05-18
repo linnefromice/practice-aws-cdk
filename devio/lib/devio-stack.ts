@@ -7,6 +7,7 @@ import { NatGateway } from './resource/natGateway';
 import { RouteTable } from './resource/routeTable';
 import { NetworkAcl } from './resource/networkAcl';
 import { IamRole } from './resource/iamRole';
+import { SecurityGroup } from './resource/securityGroup';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class DevioStack extends cdk.Stack {
@@ -68,5 +69,8 @@ export class DevioStack extends cdk.Stack {
     // iam role
     const iamRole = new IamRole()
     iamRole.createResources(this)
+    // security group
+    const securityGroup = new SecurityGroup(vpc.vpc)
+    securityGroup.createResources(this)
   }
 }
