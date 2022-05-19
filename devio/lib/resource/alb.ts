@@ -41,7 +41,8 @@ export class Alb extends Resource {
       ipAddressType: "ipv4",
       name: this.createResourceName(scope, "alb"),
       scheme: "internet-facing",
-      securityGroups: [this.subnetPublic1a.ref, this.subnetPublic1c.ref],
+      securityGroups: [this.securityGroupAlb.attrGroupId],
+      subnets: [this.subnetPublic1a.ref, this.subnetPublic1c.ref],
       type: "application"
     })
   }
