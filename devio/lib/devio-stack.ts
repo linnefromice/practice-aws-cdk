@@ -8,6 +8,7 @@ import { RouteTable } from './resource/routeTable';
 import { NetworkAcl } from './resource/networkAcl';
 import { IamRole } from './resource/iamRole';
 import { SecurityGroup } from './resource/securityGroup';
+import { Ec2 } from './resource/ec2';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class DevioStack extends cdk.Stack {
@@ -72,5 +73,13 @@ export class DevioStack extends cdk.Stack {
     // security group
     const securityGroup = new SecurityGroup(vpc.vpc)
     securityGroup.createResources(this)
+    // ec2
+    const ec2 = new Ec2(
+      subnet.app1a,
+      subnet.app1c,
+      iamRole.instanceProfileEc2,
+      securityGroup.ec2
+    )
+    ec2.createResources(this)
   }
 }
