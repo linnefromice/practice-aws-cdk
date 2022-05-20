@@ -289,6 +289,28 @@
     "@aws-cdk/cx-api" "1.156.1"
     constructs "^3.3.69"
 
+"@aws-cdk/aws-sam@1.156.1":
+  version "1.156.1"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-sam/-/aws-sam-1.156.1.tgz#b9650dcdea4319156bd59e8fa506dfd831ad4adb"
+  integrity sha512-T2+ZvOvqBRlkan61S6FjOhQ3h2ukiv6TlaQP0ynOoDZtzhJDNmc54ofOaIaixgT+LoAx0qf+yakxSpWgqiVxYQ==
+  dependencies:
+    "@aws-cdk/core" "1.156.1"
+    constructs "^3.3.69"
+
+"@aws-cdk/aws-secretsmanager@^1.156.1":
+  version "1.156.1"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-secretsmanager/-/aws-secretsmanager-1.156.1.tgz#c9b4dc7bc72815f45901eb05962905db1f73b7f1"
+  integrity sha512-5QwOagj5TgOZokv/Hiu6WH8HALWkyCi49wZJhGQ6BdAL+lvJoWrR6eaSYgLapDSPjaIex0RtlQPSng2dwLLv7w==
+  dependencies:
+    "@aws-cdk/aws-ec2" "1.156.1"
+    "@aws-cdk/aws-iam" "1.156.1"
+    "@aws-cdk/aws-kms" "1.156.1"
+    "@aws-cdk/aws-lambda" "1.156.1"
+    "@aws-cdk/aws-sam" "1.156.1"
+    "@aws-cdk/core" "1.156.1"
+    "@aws-cdk/cx-api" "1.156.1"
+    constructs "^3.3.69"
+
 "@aws-cdk/aws-signer@1.156.1":
   version "1.156.1"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-signer/-/aws-signer-1.156.1.tgz#12757fbe1fa94f69851f8cd5df7b02318a01c2f1"
