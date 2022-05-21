@@ -10,6 +10,7 @@ import { IamRole } from './resource/iamRole';
 import { SecurityGroup } from './resource/securityGroup';
 import { Ec2 } from './resource/ec2';
 import { Alb } from './resource/alb';
+import { SecretsManager } from './resource/secretsManager';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class DevioStack extends cdk.Stack {
@@ -92,5 +93,8 @@ export class DevioStack extends cdk.Stack {
       ec2.instance1c
     );
     alb.createResources(this);
+    // secrets manager
+    const secretsManager = new SecretsManager()
+    secretsManager.createResources(this)
   }
 }
