@@ -11,6 +11,7 @@ import { SecurityGroup } from './resource/securityGroup';
 import { Ec2 } from './resource/ec2';
 import { Alb } from './resource/alb';
 import { SecretsManager } from './resource/secretsManager';
+import { Rds } from './resource/rds';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class DevioStack extends cdk.Stack {
@@ -96,5 +97,11 @@ export class DevioStack extends cdk.Stack {
     // secrets manager
     const secretsManager = new SecretsManager()
     secretsManager.createResources(this)
+    // rds
+    const rds = new Rds(
+      subnet.db1a,
+      subnet.db1c
+    );
+    rds.createResources(this);
   }
 }
