@@ -430,7 +430,7 @@
     "@aws-cdk/cx-api" "1.157.0"
     constructs "^3.3.69"
 
-"@aws-cdk/aws-rds@^1.157.0":
+"@aws-cdk/aws-rds@^1.156.1":
   version "1.157.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-rds/-/aws-rds-1.157.0.tgz#aefff81ca466cbe7b8666ab6dce5622a36994a20"
   integrity sha512-hOXg/iEalJI4nFUEl3ITnMJfftsSab/VpsiHrhrSpvZzXehrrmaHEQN+t4iR3Cc6OCrbrmmv2STRB8IFCswfEg==
