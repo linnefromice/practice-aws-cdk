@@ -1,8 +1,8 @@
 // import * as cdk from 'aws-cdk-lib';
 // import { Template } from 'aws-cdk-lib/assertions';
-import * as cdk from '@aws-cdk/core';
+import { App } from 'aws-cdk-lib';
+import { Template } from 'aws-cdk-lib/assertions';
 import * as Devio from '../lib/devio-stack';
-import { expect, haveResource } from '@aws-cdk/assert';
 
 // example test. To run these tests, uncomment this file along with the
 // example resource in lib/devio-stack.ts
@@ -19,16 +19,17 @@ import { expect, haveResource } from '@aws-cdk/assert';
 // });
 
 test("Context", () => {
-  const app = new cdk.App({
+  const app = new App({
     context: {
       'systemName': 'starwars',
       'envType': 'prd'
     }
   });
   const stack = new Devio.DevioStack(app, "DevioStack");
+  const template = Template.fromStack(stack)
 
-  expect(stack).to(haveResource("AWS::EC2::VPC", {
+  template.hasResourceProperties("AWS::EC2::VPC", {
     CidrBlock: "10.0.0.0/16",
     Tags: [{ "Key": "Name", "Value": "starwars-prd-vpc" }]
-  }))
+  })
 })

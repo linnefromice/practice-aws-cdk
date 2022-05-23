@@ -1,44 +1,45 @@
-import * as cdk from "@aws-cdk/core"
+import { App } from 'aws-cdk-lib';
+import { Match, Template } from 'aws-cdk-lib/assertions';
 import * as Devio from "../../lib/devio-stack"
-import { expect, countResources, haveResource, anything } from "@aws-cdk/assert"
 
 test("RouteTable", () => {
-  const app = new cdk.App();
+  const app = new App();
   const stack = new Devio.DevioStack(app, "DevioStack")
+  const template = Template.fromStack(stack)
 
-  expect(stack).to(countResources("AWS::EC2::RouteTable", 4))
-  expect(stack).to(haveResource('AWS::EC2::RouteTable', {
-    VpcId: anything(),
+  template.resourceCountIs("AWS::EC2::RouteTable", 4)
+  template.hasResourceProperties('AWS::EC2::RouteTable', {
+    VpcId: Match.anyValue(),
     Tags: [{ 'Key': 'Name', 'Value': 'undefined-undefined-rtb-public' }]
-  }));
-  expect(stack).to(haveResource('AWS::EC2::RouteTable', {
-    VpcId: anything(),
+  });
+  template.hasResourceProperties('AWS::EC2::RouteTable', {
+    VpcId: Match.anyValue(),
     Tags: [{ 'Key': 'Name', 'Value': 'undefined-undefined-rtb-app-1a' }]
-  }));
-  expect(stack).to(haveResource('AWS::EC2::RouteTable', {
-    VpcId: anything(),
+  });
+  template.hasResourceProperties('AWS::EC2::RouteTable', {
+    VpcId: Match.anyValue(),
     Tags: [{ 'Key': 'Name', 'Value': 'undefined-undefined-rtb-app-1c' }]
-  }));
-  expect(stack).to(haveResource('AWS::EC2::RouteTable', {
-    VpcId: anything(),
+  });
+  template.hasResourceProperties('AWS::EC2::RouteTable', {
+    VpcId: Match.anyValue(),
     Tags: [{ 'Key': 'Name', 'Value': 'undefined-undefined-rtb-db' }]
-  }));
+  });
 
-  expect(stack).to(countResources('AWS::EC2::Route', 3));
-  expect(stack).to(haveResource('AWS::EC2::Route', {
-    RouteTableId: anything(),
+  template.resourceCountIs('AWS::EC2::Route', 3);
+  template.hasResourceProperties('AWS::EC2::Route', {
+    RouteTableId: Match.anyValue(),
     DestinationCidrBlock: '0.0.0.0/0',
-    GatewayId: anything()
-  }));
-  expect(stack).to(haveResource('AWS::EC2::Route', {
-    RouteTableId: anything(),
+    GatewayId: Match.anyValue()
+  });
+  template.hasResourceProperties('AWS::EC2::Route', {
+    RouteTableId: Match.anyValue(),
     DestinationCidrBlock: '0.0.0.0/0',
-    NatGatewayId: anything()
-  }));
+    NatGatewayId: Match.anyValue()
+  });
 
-  expect(stack).to(countResources('AWS::EC2::SubnetRouteTableAssociation', 6));
-  expect(stack).to(haveResource('AWS::EC2::SubnetRouteTableAssociation', {
-    RouteTableId: anything(),
-    SubnetId: anything()
-  }));
+  template.resourceCountIs('AWS::EC2::SubnetRouteTableAssociation', 6);
+  template.hasResourceProperties('AWS::EC2::SubnetRouteTableAssociation', {
+    RouteTableId: Match.anyValue(),
+    SubnetId: Match.anyValue()
+  });
 })

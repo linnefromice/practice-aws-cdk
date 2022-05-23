@@ -1,16 +1,17 @@
-import * as cdk from "@aws-cdk/core"
+import { App } from 'aws-cdk-lib';
+import { Match, Template } from 'aws-cdk-lib/assertions';
 import * as Devio from "../../lib/devio-stack"
-import { expect, countResources, haveResource } from "@aws-cdk/assert"
 
 test("NatGateway", () => {
-  const app = new cdk.App();
+  const app = new App();
   const stack = new Devio.DevioStack(app, "DevioStack")
+  const template = Template.fromStack(stack)
 
-  expect(stack).to(countResources("AWS::EC2::NatGateway", 2))
-  expect(stack).to(haveResource("AWS::EC2::NatGateway", {
+  template.resourceCountIs("AWS::EC2::NatGateway", 2)
+  template.hasResourceProperties("AWS::EC2::NatGateway", {
     Tags: [{ "Key": "Name", "Value": "undefined-undefined-ngw-1a" }]
-  }))
-  expect(stack).to(haveResource("AWS::EC2::NatGateway", {
+  })
+  template.hasResourceProperties("AWS::EC2::NatGateway", {
     Tags: [{ "Key": "Name", "Value": "undefined-undefined-ngw-1c" }]
-  }))
+  })
 })

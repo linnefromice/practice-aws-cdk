@@ -1,45 +1,46 @@
-import * as cdk from "@aws-cdk/core"
+import { App } from 'aws-cdk-lib';
+import { Match, Template } from 'aws-cdk-lib/assertions';
 import * as Devio from "../../lib/devio-stack"
-import { expect, countResources, haveResource, anything } from "@aws-cdk/assert"
 
 test('NetworkAcl', () => {
-  const app = new cdk.App();
+  const app = new App();
   const stack = new Devio.DevioStack(app, 'DevioStack');
+  const template = Template.fromStack(stack)
 
-  expect(stack).to(countResources('AWS::EC2::NetworkAcl', 3));
-  expect(stack).to(haveResource('AWS::EC2::NetworkAcl', {
-    VpcId: anything(),
+  template.resourceCountIs('AWS::EC2::NetworkAcl', 3);
+  template.hasResourceProperties('AWS::EC2::NetworkAcl', {
+    VpcId: Match.anyValue(),
     Tags: [{ 'Key': 'Name', 'Value': 'undefined-undefined-nacl-public' }]
-  }));
-  expect(stack).to(haveResource('AWS::EC2::NetworkAcl', {
-    VpcId: anything(),
+  });
+  template.hasResourceProperties('AWS::EC2::NetworkAcl', {
+    VpcId: Match.anyValue(),
     Tags: [{ 'Key': 'Name', 'Value': 'undefined-undefined-nacl-app' }]
-  }));
-  expect(stack).to(haveResource('AWS::EC2::NetworkAcl', {
-    VpcId: anything(),
+  });
+  template.hasResourceProperties('AWS::EC2::NetworkAcl', {
+    VpcId: Match.anyValue(),
     Tags: [{ 'Key': 'Name', 'Value': 'undefined-undefined-nacl-db' }]
-  }));
+  });
 
-  expect(stack).to(countResources('AWS::EC2::NetworkAclEntry', 6));
-  expect(stack).to(haveResource('AWS::EC2::NetworkAclEntry', {
-    NetworkAclId: anything(),
+  template.resourceCountIs('AWS::EC2::NetworkAclEntry', 6);
+  template.hasResourceProperties('AWS::EC2::NetworkAclEntry', {
+    NetworkAclId: Match.anyValue(),
     Protocol: -1,
     RuleAction: 'allow',
     RuleNumber: 100,
     CidrBlock: '0.0.0.0/0'
-  }));
-  expect(stack).to(haveResource('AWS::EC2::NetworkAclEntry', {
-    NetworkAclId: anything(),
+  });
+  template.hasResourceProperties('AWS::EC2::NetworkAclEntry', {
+    NetworkAclId: Match.anyValue(),
     Protocol: -1,
     RuleAction: 'allow',
     RuleNumber: 100,
     CidrBlock: '0.0.0.0/0',
     Egress: true
-  }));
+  });
 
-  expect(stack).to(countResources('AWS::EC2::SubnetNetworkAclAssociation', 6));
-  expect(stack).to(haveResource('AWS::EC2::SubnetNetworkAclAssociation', {
-    NetworkAclId: anything(),
-    SubnetId: anything()
-  }));
+  template.resourceCountIs('AWS::EC2::SubnetNetworkAclAssociation', 6);
+  template.hasResourceProperties('AWS::EC2::SubnetNetworkAclAssociation', {
+    NetworkAclId: Match.anyValue(),
+    SubnetId: Match.anyValue()
+  });
 });
