@@ -1,7 +1,7 @@
 import * as fs from 'fs';
-import * as cdk from '@aws-cdk/core';
-import { CfnInstance, CfnSubnet, CfnSecurityGroup } from '@aws-cdk/aws-ec2';
-import { CfnInstanceProfile } from '@aws-cdk/aws-iam';
+import { Construct } from 'constructs';
+import { CfnInstance, CfnSubnet, CfnSecurityGroup } from 'aws-cdk-lib/aws-ec2';
+import { CfnInstanceProfile } from 'aws-cdk-lib/aws-iam';
 import { Resource } from './abstract/resource';
 
 interface ResourceInfo {
@@ -54,14 +54,14 @@ export class Ec2 extends Resource {
     this.securityGroupEc2 = securityGroupEc2;
   }
 
-  createResources(scope: cdk.Construct): void {
+  createResources(scope: Construct): void {
     for (const resourceInfo of this.resources) {
       const instance = this.createInstance(scope, resourceInfo)
       resourceInfo.assign(instance)
     }
   }
 
-  private createInstance(scope: cdk.Construct, resourceInfo: ResourceInfo): CfnInstance {
+  private createInstance(scope: Construct, resourceInfo: ResourceInfo): CfnInstance {
     const instance = new CfnInstance(scope, resourceInfo.id, {
       availabilityZone: resourceInfo.availabilityZone,
       iamInstanceProfile: this.instanceProfileEc2.ref,

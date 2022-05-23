@@ -1,5 +1,5 @@
-import * as cdk from "@aws-cdk/core"
-import { CfnEIP, CfnNatGateway, CfnSubnet } from "@aws-cdk/aws-ec2"
+import { Construct } from 'constructs';
+import { CfnEIP, CfnNatGateway, CfnSubnet } from "aws-cdk-lib/aws-ec2"
 import { Resource } from "./abstract/resource"
 
 interface ResourceInfo {
@@ -49,14 +49,14 @@ export class NatGateway extends Resource {
     this.elasticIpNgw1c = elasticIpNgw1c
   }
 
-  createResources(scope: cdk.Construct): void {
+  createResources(scope: Construct): void {
     for (const resourceInfo of this.resourceInfos) {
       const ngw = this.createNatGateway(scope, resourceInfo)
       resourceInfo.assign(ngw)
     }
   }
 
-  private createNatGateway(scope: cdk.Construct, resourceInfo: ResourceInfo): CfnNatGateway {
+  private createNatGateway(scope: Construct, resourceInfo: ResourceInfo): CfnNatGateway {
     return new CfnNatGateway(scope, resourceInfo.id, {
       allocationId: resourceInfo.allocationId(),
       subnetId: resourceInfo.subnetId(),

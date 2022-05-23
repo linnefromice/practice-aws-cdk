@@ -1,5 +1,5 @@
-import * as cdk from "@aws-cdk/core"
-import { CfnInternetGateway, CfnVPC, CfnVPCGatewayAttachment } from "@aws-cdk/aws-ec2"
+import { Construct } from 'constructs';
+import { CfnInternetGateway, CfnVPC, CfnVPCGatewayAttachment } from "aws-cdk-lib/aws-ec2"
 import { Resource } from "./abstract/resource"
 
 export class InternetGateway extends Resource {
@@ -12,7 +12,7 @@ export class InternetGateway extends Resource {
     this.vpc = vpc;
   }
 
-  createResources(scope: cdk.Construct): void {
+  createResources(scope: Construct): void {
     this.igw = new CfnInternetGateway(scope, "InternetGateway", {
       tags: [{ key: "Name", value: this.createResourceName(scope, "igw")}]
     });

@@ -1,5 +1,5 @@
-import * as cdk from "@aws-cdk/core"
-import { CfnInternetGateway, CfnNatGateway, CfnRoute, CfnRouteTable, CfnSubnet, CfnSubnetRouteTableAssociation, CfnVPC } from "@aws-cdk/aws-ec2"
+import { Construct } from 'constructs';
+import { CfnInternetGateway, CfnNatGateway, CfnRoute, CfnRouteTable, CfnSubnet, CfnSubnetRouteTableAssociation, CfnVPC } from "aws-cdk-lib/aws-ec2"
 import { Resource } from "./abstract/resource"
 
 interface RouteInfo {
@@ -134,14 +134,14 @@ export class RouteTable extends Resource {
     this.natGateway1c = natGateway1c;
   }
 
-  createResources(scope: cdk.Construct): void {
+  createResources(scope: Construct): void {
     for (const resourceInfo of this.resources) {
       const routeTable = this.createRouteTable(scope, resourceInfo)
       resourceInfo.assign(routeTable)
     }
   }
 
-  private createRouteTable(scope: cdk.Construct, resourceInfo: ResourceInfo) {
+  private createRouteTable(scope: Construct, resourceInfo: ResourceInfo) {
     const routeTable = new CfnRouteTable(scope, resourceInfo.id, {
       vpcId: this.vpc.ref,
       tags: [{
@@ -160,7 +160,7 @@ export class RouteTable extends Resource {
     return routeTable
   }
 
-  private createRoute(scope: cdk.Construct, routeInfo: RouteInfo, routeTable: CfnRouteTable) {
+  private createRoute(scope: Construct, routeInfo: RouteInfo, routeTable: CfnRouteTable) {
     const route = new CfnRoute(scope, routeInfo.id, {
       routeTableId: routeTable.ref,
       destinationCidrBlock: routeInfo.destinationCidrBlock
@@ -173,7 +173,7 @@ export class RouteTable extends Resource {
     }
   }
 
-  private createAssociation(scope: cdk.Construct, associationInfo: AssociationInfo, routeTable: CfnRouteTable) {
+  private createAssociation(scope: Construct, associationInfo: AssociationInfo, routeTable: CfnRouteTable) {
     new CfnSubnetRouteTableAssociation(scope, associationInfo.id, {
       routeTableId: routeTable.ref,
       subnetId: associationInfo.subnetId()

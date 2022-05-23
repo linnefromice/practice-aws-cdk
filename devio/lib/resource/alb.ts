@@ -1,6 +1,6 @@
-import * as cdk from '@aws-cdk/core';
-import { CfnLoadBalancer, CfnTargetGroup, CfnListener } from '@aws-cdk/aws-elasticloadbalancingv2';
-import { CfnVPC, CfnSubnet, CfnSecurityGroup, CfnInstance, Port } from '@aws-cdk/aws-ec2';
+import { Construct } from 'constructs';
+import { CfnLoadBalancer, CfnTargetGroup, CfnListener } from 'aws-cdk-lib/aws-elasticloadbalancingv2';
+import { CfnVPC, CfnSubnet, CfnSecurityGroup, CfnInstance } from 'aws-cdk-lib/aws-ec2';
 import { Resource } from './abstract/resource';
 
 export class Alb extends Resource {
@@ -30,13 +30,13 @@ export class Alb extends Resource {
       this.ec2Instance1c = ec2Instance1c;
   }
 
-  createResources(scope: cdk.Construct): void {
+  createResources(scope: Construct): void {
     this.loadBalancer = this.createLoadBalancer(scope)
     const targetGroup = this.createTargetGroup(scope)
     this.createListener(scope, this.loadBalancer, targetGroup)
   }
 
-  createLoadBalancer(scope: cdk.Construct): CfnLoadBalancer {
+  createLoadBalancer(scope: Construct): CfnLoadBalancer {
     return new CfnLoadBalancer(scope, "Alb", {
       ipAddressType: "ipv4",
       name: this.createResourceName(scope, "alb"),
@@ -47,7 +47,7 @@ export class Alb extends Resource {
     })
   }
 
-  createTargetGroup(scope: cdk.Construct) {
+  createTargetGroup(scope: Construct) {
     return new CfnTargetGroup(scope, "AlbTargetGroup", {
       name: this.createResourceName(scope, "tg"),
       port: 80,
@@ -61,7 +61,7 @@ export class Alb extends Resource {
     })
   }
 
-  createListener(scope: cdk.Construct, loadBalancer: CfnLoadBalancer, targetGroup: CfnTargetGroup) {
+  createListener(scope: Construct, loadBalancer: CfnLoadBalancer, targetGroup: CfnTargetGroup) {
     new CfnListener(scope, "AlbListener", {
       defaultActions: [{
         type: "forward",
