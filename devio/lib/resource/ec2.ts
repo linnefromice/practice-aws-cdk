@@ -62,7 +62,7 @@ export class Ec2 extends Resource {
   }
 
   private createInstance(scope: cdk.Construct, resourceInfo: ResourceInfo): CfnInstance {
-    return new CfnInstance(scope, resourceInfo.id, {
+    const instance = new CfnInstance(scope, resourceInfo.id, {
       availabilityZone: resourceInfo.availabilityZone,
       iamInstanceProfile: this.instanceProfileEc2.ref,
       imageId: Ec2.latestImageIdAmazonLinux2,
@@ -72,5 +72,10 @@ export class Ec2 extends Resource {
       tags: [{ key: "Name", value: this.createResourceName(scope, resourceInfo.resourceName) }],
       userData: fs.readFileSync(Ec2.userDataFilePath, 'base64')
     })
+
+    const keyName = scope.node.tryGetContext("keyName")
+    if (keyName) instance.keyName
+
+    return instance
   }
 }
